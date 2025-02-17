@@ -1,0 +1,17 @@
+services:
+  theprice:
+    image: ${DOCKER_REGISTRY-}theprice
+    build:
+      context: .
+      dockerfile: ThePrice/Dockerfile
+
+  postgres13:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: theprice
+      POSTGRES_PASSWORD: theprice
+      POSTGRES_DB: theprice
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres13-data:/var/lib/postgresql/data
