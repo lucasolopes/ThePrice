@@ -10,11 +10,10 @@ public static class DbContextConfiguration
         services.AddDbContext<ThePriceDbContext>(options =>
         {
             string? connectionString = Environment.GetEnvironmentVariable("ConnectionString");
-            var serverVersion = new MariaDbServerVersion(new Version(11, 4, 2));
 
-            options.UseMySql(connectionString, serverVersion, mysqlOptions =>
+            options.UseNpgsql(connectionString, npgsqlOptions =>
                 {
-                    mysqlOptions.EnableRetryOnFailure(
+                    npgsqlOptions.EnableRetryOnFailure(
                         5,
                         TimeSpan.FromSeconds(10),
                         null

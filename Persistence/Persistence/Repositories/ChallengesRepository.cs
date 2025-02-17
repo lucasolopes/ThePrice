@@ -21,8 +21,9 @@ public class ChallengesRepository(ThePriceDbContext context) : IChallengesReposi
     public async Task<Challenge> GetRandomChallenge()
     {
         return await _context.Challenges
-            .FromSqlRaw("SELECT * FROM Challenges ORDER BY RAND() LIMIT 1")
+            .FromSqlRaw("SELECT * FROM \"Challenges\" ORDER BY RANDOM() LIMIT 1")
             .FirstOrDefaultAsync();
     }
+
 }
 
