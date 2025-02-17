@@ -9,16 +9,16 @@ services:
         - "8080:8080"
     depends_on:
       - thepricedb
-    environment:
-      ConnectionString: "Server=thepricedb;Database=thepricedb;User=root;Port=3306"
+    env_file:
+      - .env
     networks:
       - theprice-network
 
   thepricedb:
     image: mariadb:11.4.2
     container_name: thepricedb-container
-    environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    env_file:
+      - .envDb
     ports:
       - "3306:3306"
     volumes:
