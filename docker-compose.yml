@@ -1,17 +1,32 @@
 services:
   theprice:
     image: ${DOCKER_REGISTRY-}theprice
+    container_name: theprice-container
     build:
       context: .
       dockerfile: ThePrice/Dockerfile
-
-  postgres13:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: theprice
-      POSTGRES_PASSWORD: theprice
-      POSTGRES_DB: theprice
     ports:
-      - "5432:5432"
+        - "8080:8080"
+    depends_on:
+      - thepricedb
+    networks:
+      - theprice-network
+
+  thepricedb:
+    image: mariadb:11.4.2
+    container_name: thepricedb-container
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
     volumes:
-      - postgres13-data:/var/lib/postgresql/data
+      - thepricedb_data:/var/lib/mysql 
+    networks:
+      - theprice-network
+
+volumes:
+    thepricedb_data:
+  
+networks:
+  theprice-network:
+    driver: bridge
