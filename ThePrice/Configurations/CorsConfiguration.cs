@@ -6,13 +6,11 @@ public static class CorsConfiguration
     {
         services.AddCors(options =>
         {
-            options.AddPolicy("AllowLocalhostAndZero", policy =>
+            options.AddPolicy("AllowAll", policy =>
             {
-                policy.WithOrigins("http://localhost", "http://0.0.0.0", 
-                        "http://localhost:8080", "http://0.0.0.0:8080")
+                policy.AllowAnyOrigin() 
                     .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
+                    .AllowAnyMethod(); 
             });
         });
     }
