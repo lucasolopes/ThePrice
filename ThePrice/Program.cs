@@ -1,5 +1,9 @@
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Persistence.Repositories;
+using Services.Abstractions;
+using Services.Implementations;
 using ThePrice.Configurations;
 using ThePrice.Middleware;
 
@@ -10,6 +14,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureCors();
 builder.Services.ConfigureDbContext();
 
+builder.Services.AddScoped<IChallengesService, ChallengesService>();
+builder.Services.AddScoped<IChallengesRepository, ChallengesRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

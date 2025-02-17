@@ -9,6 +9,8 @@ services:
         - "8080:8080"
     depends_on:
       - thepricedb
+    environment:
+      ConnectionString: "Server=thepricedb;Database=thepricedb;User=root;Port=3306"
     networks:
       - theprice-network
 
