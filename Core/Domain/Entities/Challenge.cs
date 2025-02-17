@@ -8,6 +8,6 @@ namespace Domain.Entities;
 public class Challenge
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string challenge { get; set; } = string.Empty;
+    public string Challenges { get; set; } = null!;
 }
 

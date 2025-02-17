@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstractions;
+using Shared.Request;
+using Shared.Response;
 
 namespace ThePrice.Controllers;
 
@@ -13,12 +15,13 @@ public class ChallengesController(IChallengesService challengesService) : Contro
     [HttpGet]
     public async Task<IActionResult> GetRandomChallenges()
     {
-        Challenge challenges = await _challengesService.GetRandomChallenge();
+        ChallengeResponse challenges = await _challengesService.GetRandomChallenge();
         return Ok(challenges);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateAttachChallenges(List<string> challenges)
+    [Route("Attach")]
+    public async Task<IActionResult> CreateAttachChallenges(List<ChallengeRequest> challenges)
     {
         await _challengesService.CreateAttachChallenges(challenges);
         return Ok();

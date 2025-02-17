@@ -6,22 +6,27 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Repositories;
 using Services.Abstractions;
+using Services.Mappers;
+using Shared.Request;
+using Shared.Response;
 
 namespace Services.Implementations;
 public class ChallengesService(IChallengesRepository repository) : IChallengesService
 {
     private readonly IChallengesRepository _repository = repository;
 
-    public async Task CreateAttachChallenges(List<string> challenges)
+    public async Task CreateAttachChallenges(List<ChallengeRequest> challenges)
     {
-        var challengesList = challenges.Select(x => new Challenge { challenge = x }).ToList();
+        List<Challenge> challengesList = ChallengeMapper.Convert(challenges);
 
         await _repository.CreateAttachChallenges(challengesList);
     }
 
-    public async Task<Challenge> GetRandomChallenge()
+    public async Task<ChallengeResponse> GetRandomChallenge()
     {
-        return await _repository.GetRandomChallenge();
+        Challenge challenge = await _repository.GetRandomChallenge();
+
+        return ChallengeMapper.Convert(challenge);
     }
 }
 
